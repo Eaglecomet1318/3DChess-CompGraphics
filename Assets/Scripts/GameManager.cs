@@ -173,7 +173,24 @@ public class GameManager : MonoBehaviour
 
    
     }
-
+    
+    // Capture Piece Method and Win Conditions (11/29/2018)
+    public void CapturePieceAt(Vector2Int gridPoint)
+    {
+        GameObject pieceToCapture = PieceAtGrid(gridPoint);
+        currentPlayer.capturedPieces.Add(pieceToCapture);
+        pieces[gridPoint.x, gridPoint.y] = null;
+        
+        if (pieceToCapture.GetComponent<Piece>().type == PieceType.King)
+        {
+            Debug.Log(currentPlayer.name + " wins!");
+            Destroy(board.GetComponent<TileSelector>());
+            Destroy(board.GetComponent<MoveSelector>());
+        }
+        
+        Destroy(pieceToCapture);
+    }
+    
     public void RemovePiece(GameObject piece)
     {
         board.RemovePiece(piece);
