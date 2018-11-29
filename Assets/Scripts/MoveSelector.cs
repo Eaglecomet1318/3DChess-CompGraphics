@@ -99,11 +99,20 @@ public class MoveSelector : MonoBehaviour
                         GameManager.instance.RemovePiece(pieceAtLocation);
                     }
                     GameManager.instance.StartCoroutine(GameManager.instance.Move(movingPiece, gridPoint));
-                    ExitState();
+		    
+		    //Updates piece movement (11/29/2018)
+		    else
+			{
+   				 GameManager.instance.CapturePieceAt(gridPoint);
+    				 GameManager.instance.Move(movingPiece, gridPoint);
+			}
+                    
+		    ExitState();
                 } 
                 else if(GameManager.instance.GridForPiece(movingPiece) == gridPoint)
                 {
                     //else if entered if user deselects piece
+
                     deactivateMoveTiles();
                     ExitState();
                 }
